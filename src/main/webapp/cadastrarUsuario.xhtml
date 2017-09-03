@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Crud de usuario</title>
+	
+	<style type="text/css">
+		.ui-layout-unit {
+			border: none;
+		}
+	</style>
+</h:head>
+<h:body>
+	<p:layout fullPage="true">
+		<p:layoutUnit position="center" gutter="0">
+			<h:form>
+				<p:growl id="growl" showDetail="true" life="2500"/>
+				
+				<p:tabMenu activeIndex="#{param.i}">
+					<p:menuitem value="Home" outcome="index.xhtml" icon="fa fa-home">
+						<f:param name="i" value="0" />
+					</p:menuitem>
+					<p:menuitem value="Cadastro" outcome="cadastrarUsuario.xhtml" icon="fa fa-plus">
+					<f:param name="i" value="1" />
+						</p:menuitem>
+					<p:menuitem value="Listar" outcome="listarUsuarios.xhtml" icon="fa fa-list">
+						<f:param name="i" value="2" />
+					</p:menuitem>
+				</p:tabMenu>
+				
+				<p:panel id="basic" header="Cadastro"
+					style="margin-bottom:20px; border: 3px">
+					<br></br>
+					<p:fieldset id="cadastroForm" collapsed="true" legend="Novo"
+						toggleable="true" toggleSpeed="750"
+						style="font-size: 14px;">
+						<p:ajax event="toggle" />
+	
+						<h:panelGrid columns="2" cellpadding="15">
+							<h:outputLabel for="nome" value="Nome: " />
+							<p:inputText id="nome" 
+								value="#{usuarioController.user.nome}" 
+								required="true"
+								validatorMessage="Preencha o campo"/>
+							
+							<p:outputLabel for="email" value="Email" />
+							<p:inputText id="email" 
+								value="#{usuarioController.user.email}" 
+								required="true"
+								validatorMessage="Email invalido">
+								
+								<f:validateRegex
+									pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+							
+							</p:inputText>
+							<p:watermark for="email" value="Email"/>
+						</h:panelGrid>
+						
+						<p:commandButton type="reset" value="Limpar" />
+						<p:commandButton value="Salvar"
+							action="#{usuarioController.salvarUsuario}"
+							update="@form"
+							style="margin: 25px 15px" 
+							ajax="false"/>
+											
+					</p:fieldset>
+				</p:panel>
+			</h:form>
+		</p:layoutUnit>
+
+		<p:layoutUnit position="south" size="50" resizable="true"
+			closable="false" gutter="0">
+			<p:outputLabel>Departamento de Computação 2017.1</p:outputLabel>
+		</p:layoutUnit>
+	</p:layout>
+</h:body>
+</html>

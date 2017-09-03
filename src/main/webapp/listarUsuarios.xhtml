@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Crud de usuario</title>
+
+	<style type="text/css">
+.ui-layout-unit {
+	border: none;
+}
+</style>
+</h:head>
+<h:body>
+	<p:layout fullPage="true">
+		<p:layoutUnit position="center" gutter="0">
+			<h:form id="form">
+				<p:growl id="msgs" showDetail="true" life="2500" />
+
+				<p:tabMenu activeIndex="#{param.i}">
+					<p:menuitem value="Home" outcome="index.xhtml" icon="fa fa-home">
+						<f:param name="i" value="0" />
+					</p:menuitem>
+					<p:menuitem value="Cadastrar" outcome="cadastrarUsuario.xhtml"
+						icon="fa fa-plus">
+						<f:param name="i" value="1" />
+					</p:menuitem>
+					<p:menuitem value="Listar" outcome="listarUsuarios.xhtml"
+						icon="fa fa-list">
+						<f:param name="i" value="2" />
+					</p:menuitem>
+				</p:tabMenu>
+				<p:panel id="basic" header="Usuarios Cadastrados"
+					style="margin-bottom:20px; border: 3px">
+					<br></br>
+					<p:dataTable id="usuarios" var="user"
+						value="#{usuarioController.usuarios}" scrollable="true"
+						scrollHeight="auto" editable="true"
+						style="margin-bottom:20px; font-size: 15px;" rows="10"
+						paginator="true"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15">
+
+						<p:ajax event="rowEdit" listener="#{usuarioController.onRowEdit}"
+							update=":form:msgs" />
+
+
+						<p:column headerText="Nome">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{user.nome}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{user.nome}" style="width:100%" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+						<p:column headerText="Email">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{user.email}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{user.email}" style="width:100%" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+
+						<p:column headerText="Editar" style="width:50px">
+							<p:rowEditor />
+						</p:column>
+						<p:column headerText="Remover" style="width:70px">
+
+							<p:commandButton
+								action="#{usuarioController.removerUsuario(user)}"
+								onclick="PF('cd').show()" icon="fa fa-trash-o" ajax="true" />
+
+							<p:confirmDialog global="true" showEffect="fade"
+								hideEffect="fade" message="Deseja remover o usuario?"
+								header="Deletar" widgetVar="cd">
+
+								<p:commandButton value="Sim" styleClass="ui-confirmdialog-yes"
+									icon="ui-icon-check" style="center"
+									oncomplete="PF('cd').hide()" update="@form" />
+
+								<p:commandButton value="Não" type="button"
+									styleClass="ui-confirmdialog-no" icon="ui-icon-close"
+									oncomplete="PF('cd').hide()" />
+
+							</p:confirmDialog>
+
+						</p:column>
+
+					</p:dataTable>
+				</p:panel>
+			</h:form>
+		</p:layoutUnit>
+
+		<p:layoutUnit position="south" size="50" resizable="true"
+			closable="false" gutter="0">
+			<p:outputLabel>Departamento de Computação 2017.1</p:outputLabel>
+		</p:layoutUnit>
+	</p:layout>
+</h:body>
+</html>

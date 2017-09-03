@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Crud de usuario</title>
+
+	<style type="text/css">
+		.ui-layout-unit {
+			border: none;
+		}
+	</style>
+</h:head>
+<h:body>
+	<p:layout fullPage="true">
+		<p:layoutUnit position="center" gutter="0">
+			<h:form>
+				<p:tabMenu id="tm" activeIndex="#{param.i}">
+					<p:menuitem value="Home" outcome="index.xhtml" icon="fa fa-home">
+						<f:param name="i" value="0" />
+					</p:menuitem>
+					<p:menuitem value="Cadastro" outcome="cadastrarUsuario.xhtml" icon="fa fa-plus">
+					<f:param name="i" value="1" />
+						</p:menuitem>
+					<p:menuitem value="Listar" outcome="listarUsuarios.xhtml" icon="fa fa-list">
+						<f:param name="i" value="2" />
+					</p:menuitem>
+				</p:tabMenu>
+				
+				<p:panel id="basic" header="Home"
+					style="margin-bottom:20px; border: 3px">
+
+					<h:panelGrid cellpadding="10">
+						<p:outputLabel>Exemplo CRUD de usuario para parte de aprendizado
+					das ferramentas utilizadas no estagio.</p:outputLabel>
+						<p:outputLabel>Funcionalidades</p:outputLabel>
+						<p:outputLabel>-Adicionar, remover, alterar e buscar</p:outputLabel>
+						<p:outputLabel>Tecnologias utilizadas: Primefaces/JSF, JPA, Spring MVC</p:outputLabel>
+					</h:panelGrid>
+				</p:panel>
+			</h:form>
+		</p:layoutUnit>
+
+		<p:layoutUnit position="south" size="50"
+			resizable="true" closable="false" gutter="0">
+			<p:outputLabel>Departamento de Computação 2017.1</p:outputLabel>
+		</p:layoutUnit>
+	</p:layout>
+	
+	
+
+</h:body>
+</html>
